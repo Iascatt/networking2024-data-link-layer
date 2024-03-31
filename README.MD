@@ -8,3 +8,5 @@
 
 ### Документация
 ТЗ: https://docs.google.com/document/d/1cMdoyqW3XjzZt3Xezl-_9n8A5boBtmDO7ScygGG_NHk/edit
+Swagger: 
+Диаграмма последовательности: 
