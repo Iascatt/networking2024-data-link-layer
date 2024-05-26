@@ -101,20 +101,14 @@ def code(request):
         if lose_frame():
             raise Exception("frame loss")
 
-        """requests.post(url = TRANSPORT_LAYER_ADDRESS, json={
+        requests.post(url = TRANSPORT_LAYER_ADDRESS, json={
             'segment_number': request.data["segment_number"],
             'amount_segments': request.data["amount_segments"],
             'segment_data': base64.b64encode(bytes_decoded_segment).decode('utf-8'),
             'dispatch_time': request.data["dispatch_time"],
             'user': request.data["user"]
-        })"""
-        return JsonResponse(data={
-            'segment_number': request.data["segment_number"],
-            'amount_segments': request.data["amount_segments"],
-            'segment_data': base64.b64encode(bytes_decoded_segment).decode('utf-8'),
-            'dispatch_time': request.data["dispatch_time"],
-            'user': request.data["user"]
-        }, status=200)
+        })
+        return JsonResponse(status=200)
     
     except Exception as e:
         logger.error(f"Ошибка: {e}")
