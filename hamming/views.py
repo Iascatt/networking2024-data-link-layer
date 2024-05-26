@@ -44,9 +44,14 @@ def code(request):
 
     logger.warning(f'От транспортного уровня получили сегмент длиной {len(bytes_segment)} байт:\n'
                    f'{bytes_segment}')
-
     
-    bin_segment = bin(int.from_bytes(bytes_segment))[2::]
+    bin_segment_in = bin(int.from_bytes(bytes_segment))[2::]
+
+    bin_segment = ""
+    if len(bin_segment_in) % 4 == 0:
+        bin_segment = bin_segment_in
+    else:
+        bin_segment = bin_segment_in.rjust(len(bin_segment_in) + (4 - len(bin_segment_in) % 4), "0")
     try:
         # получаем код сегмента из параметров запроса
         logger.warning(f'или {len(bin_segment)} бит:\n'
@@ -96,13 +101,13 @@ def code(request):
         if lose_frame():
             raise Exception("frame loss")
 
-        requests.post(url = TRANSPORT_LAYER_ADDRESS, json={
+        """requests.post(url = TRANSPORT_LAYER_ADDRESS, json={
             'segment_number': request.data["segment_number"],
             'amount_segments': request.data["amount_segments"],
             'segment_data': base64.b64encode(bytes_decoded_segment).decode('utf-8'),
             'dispatch_time': request.data["dispatch_time"],
             'user': request.data["user"]
-        })
+        })"""
         return JsonResponse(data={
             'segment_number': request.data["segment_number"],
             'amount_segments': request.data["amount_segments"],
